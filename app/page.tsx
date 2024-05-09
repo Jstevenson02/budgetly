@@ -1,16 +1,24 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import BudgetForm from "@/app/components/BudgetForm";
 import { Expense } from "./types";
 import ExpenseList from "./components/ExpenseList";
 import TotalDisplay from "./components/TotalDisplay";
 
 function Home() {
-  const [expenses, setExpenses] = useState<Expense[]>([]);
+  const [expenses, setExpenses] = useState<Expense[]>(() => {
+    const savedExpenses = localStorage.getItem("expenses");
+    return savedExpenses ? JSON.parse(savedExpenses) : [];
+  });
+
+  // Use useEffect to update localStorage when expenses change
+  useEffect(() => {
+    localStorage.setItem("expenses", JSON.stringify(expenses));
+  }, [expenses]);
 
   const addExpense = (expense: Expense) => {
-    setExpenses([...expenses, expense]);
+    setExpenses((prevExpenses) => [...prevExpenses, expense]);
   };
 
   return (
