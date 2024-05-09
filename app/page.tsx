@@ -22,8 +22,8 @@ function Home() {
   };
 
   return (
-    <div>
-      <h1>Simple Budget App</h1>
+    <div className='flex justify-center flex-col gap-4'>
+      <h1>budgetly</h1>
       <BudgetForm onAddExpense={addExpense} />
       <ExpenseList expenses={expenses} />
       <TotalDisplay expenses={expenses} />
